@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block title %}Add Cow{% endblock %}
+{% block content %}
+<h2>Add New Cow</h2>
+<form method="post" class="card p-4">
+    <div class="mb-3">
+        <input type="text" name="name" class="form-control" placeholder="Cow Name" required>
+    </div>
+    <div class="mb-3">
+        <input type="text" name="breed" class="form-control" placeholder="Breed" required>
+    </div>
+    <div class="mb-3">
+        <input type="number" name="age" class="form-control" placeholder="Age" required>
+    </div>
+    <div class="mb-3">
+        <input type="text" name="health" class="form-control" placeholder="Health Status" required>
+    </div>
+    <button type="submit" class="btn btn-success">Add Cow</button>
+</form>
+{% endblock %}

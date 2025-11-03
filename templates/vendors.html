@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block title %}All Vendors{% endblock %}
+{% block content %}
+<h2 class="mb-4">Registered Milk Farmers</h2>
+
+<table class="table table-bordered table-striped">
+    <thead class="table-success">
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Contact</th>
+            <th>Village</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for vendor in vendors %}
+        <tr>
+            <td>{{ vendor.id }}</td>         {# id #}
+            <td>{{ vendor.name }}</td>         {# name #}
+            <td>{{ vendor.contact }}</td>         {# contact #}
+            <td>{{ vendor.village }}</td>         {# village #}
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

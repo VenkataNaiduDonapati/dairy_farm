@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block title %}Cows{% endblock %}
+{% block content %}
+<h2>All Cows</h2>
+<form method="get" action="/cows" class="mb-3">
+    <input type="text" name="query" class="form-control" placeholder="Search cows by name or breed">
+</form>
+<table class="table table-bordered table-striped">
+    <thead class="table-success">
+        <tr><th>ID</th><th>Name</th><th>Breed</th><th>Age</th><th>Health</th></tr>
+    </thead>
+    <tbody>
+        {% for cow in cows %}
+        <tr>
+            <td>{{ cow[0] }}</td>
+            <td>{{ cow[1] }}</td>
+            <td>{{ cow[2] }}</td>
+            <td>{{ cow[3] }}</td>
+            <td>{{ cow[4] }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

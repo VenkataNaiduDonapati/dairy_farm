@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block title %}Milk Sheet Summary{% endblock %}
+{% block content %}
+<h2>Milk Sheet Summary</h2>
+<p><strong>Date:</strong> {{ date }} | <strong>Session:</strong> {{ session }}</p>
+
+<table class="table table-bordered table-striped">
+    <thead class="table-success">
+        <tr>
+            <th>ID</th>
+            <th>Vendor Name</th>
+            <th>Milk (L)</th>
+            <th>Percentage</th>
+            <th>Price (₹)</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for log in logs %}
+        <tr>
+            <td>{{ log.id }}</td>
+            <td>{{ log.vendors.name }}</td>
+            <td>{{ log.milk_litres }}</td>
+            <td>{{ log.percentage }}</td>
+            <td>{{ log.price }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<a href="/milk-sheet" class="btn btn-secondary mt-3">Back to Entry Form</a>
+{% endblock %}

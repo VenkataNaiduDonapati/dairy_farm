@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block title %}Add Vendor{% endblock %}
+{% block content %}
+<div class="card mx-auto" style="max-width: 600px;">
+    <div class="card-body">
+        <h4 class="card-title text-center mb-4">Register New Farmer</h4>
+        <form method="post">
+            <div class="mb-3">
+                <label for="name" class="form-label">Farmer Name</label>
+                <input type="text" name="name" id="name" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label for="contact" class="form-label">Contact</label>
+                <input type="text" name="contact" id="contact" class="form-control">
+            </div>
+            <div class="mb-3">
+                <label for="village" class="form-label">Village</label>
+                <input type="text" name="village" id="village" class="form-control">
+            </div>
+            <button type="submit" class="btn btn-success w-100">Add Farmer</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

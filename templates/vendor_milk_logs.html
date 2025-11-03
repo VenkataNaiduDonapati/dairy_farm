@@ -1,0 +1,104 @@
+{% extends 'base.html' %}
+{% block title %}Milk Card{% endblock %}
+{% block content %}
+<h2 class="mb-4 text-center">Milk Card</h2>
+
+<form method="post" class="row g-3 mb-4">
+    <div class="col-md-5">
+        <label for="vendor_id" class="form-label">Select Farmer</label>
+        <select name="vendor_id" id="vendor_id" class="form-select" required>
+            <option value="">-- Choose Farmer --</option>
+            {% for vendor in vendors %}
+            <option value="{{ vendor.id }}" {% if vendor[0]|string == selected_vendor_id %}selected{% endif %}>
+                {{ vendor.name }}
+            </option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="col-md-4">
+        <label for="month" class="form-label">Select Month</label>
+        <input type="month" name="month" id="month" class="form-control" value="{{ selected_month }}" required>
+    </div>
+    <div class="col-md-3 align-self-end">
+        <button type="submit" class="btn btn-success w-100">View Milk Card</button>
+    </div>
+</form>
+
+{% if logs_by_date %}
+<table class="table table-bordered table-striped">
+    <thead class="table-success text-center">
+        <tr>
+            <th rowspan="2">Date</th>
+            <th colspan="3">Morning</th>
+            <th colspan="3">Evening</th>
+            <th rowspan="2">Total Milk (L)</th>
+            <th rowspan="2">Total Price (₹)</th>
+        </tr>
+        <tr>
+            <th>Milk (L)</th>
+            <th>%</th>
+            <th>₹</th>
+            <th>Milk (L)</th>
+            <th>%</th>
+            <th>₹</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for date, sessions in logs_by_date.items() %}
+        {% set m = sessions.morning %}
+        {% set e = sessions.evening %}
+        {% set total_litres = (m.litres if m else 0) + (e.litres if e else 0) %}
+        {% set total_price = (m.price if m else 0) + (e.price if e else 0) %}
+        <tr class="text-center">
+            <td>{{ date.strftime('%d-%m-%Y') }}</td>
+            <td>{{ m.litres if m else '-' }}</td>
+            <td>{{ m.percentage if m else '-' }}</td>
+            <td>{{ m.price if m else '-' }}</td>
+            <td>{{ e.litres if e else '-' }}</td>
+            <td>{{ e.percentage if e else '-' }}</td>
+            <td>{{ e.price if e else '-' }}</td>
+            <td><strong>{{ total_litres }}</strong></td>
+            <td><strong>{{ total_price }}</strong></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<h4 class="mt-5">10-Day Summary</h4>
+<table class="table table-bordered table-striped w-50">
+    <thead class="table-secondary text-center">
+        <tr>
+            <th>Day Range</th>
+            <th>Total Milk (L)</th>
+            <th>Total Price (₹)</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for range, totals in summary_by_range.items() %}
+        <tr class="text-center">
+            <td>{{ range }}</td>
+            <td>{{ "%.2f"|format(totals.litres) }}</td>
+            <td>{{ "%.2f"|format(totals.price) }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<h4 class="mt-5">Monthly Total</h4>
+<table class="table table-bordered table-striped w-50">
+    <thead class="table-primary text-center">
+        <tr>
+            <th>Total Milk (L)</th>
+            <th>Total Price (₹)</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr class="text-center">
+            <td>{{ "%.2f"|format(monthly_total.litres) }}</td>
+            <td>{{ "%.2f"|format(monthly_total.price) }}</td>
+        </tr>
+    </tbody>
+</table>
+{% elif selected_vendor_id and selected_month %}
+<div class="alert alert-warning">No milk entries found for this vendor in {{ selected_month }}.</div>
+{% endif %}
+{% endblock %}

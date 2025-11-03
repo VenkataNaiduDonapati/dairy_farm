@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Dairy Farm App{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body class="bg-light">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-success">
+        <div class="container">
+            <a class="navbar-brand" href="/">🐄 Dairy Farm</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    {% if current_user.is_authenticated %}
+                    <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/add-cow" hidden>Add Cow</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/cows" hidden>View Cows</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/add-milk-log" hidden>Log Cow Milk</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/milk-logs" hidden>Cow Milk Logs</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/vendors" >Farmers</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/add-vendor">Add Farmer</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/milk-sheet">Milk Entry Sheet</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/vendor-milk-logs">Milk Summary</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/logout">Logout</a></li>
+                    {% else %}
+                    <li class="nav-item"><a class="nav-link" href="/login">Login</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        {% block content %}{% endblock %}
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

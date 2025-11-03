@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% block title %}Milk Sheet Entry{% endblock %}
+{% block content %}
+<h2>Milk Collection Sheet</h2>
+<form method="post">
+    <div class="row mb-3">
+        <div class="col-md-4">
+            <label>Date</label>
+            <input type="date" name="date" class="form-control" required>
+        </div>
+        <div class="col-md-4">
+            <label>Session</label>
+            <select name="session" class="form-select" required>
+                <option value="morning">Morning</option>
+                <option value="evening">Evening</option>
+            </select>
+        </div>
+        <div class="col-md-4">
+            <label>Rate (₹/L)</label>
+            <input type="number" step="0.1" name="rate" class="form-control" required>
+        </div>
+    </div>
+    <table class="table table-bordered">
+        <thead class="table-success">
+            <tr>
+                <th>card no</th>
+                <th>Farmer</th>
+                <th>Milk (L)</th>
+                <th>Percentage</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for vendor in vendors %}
+            <tr>
+                <td>{{ vendor.id }}</td>
+
+                <td>
+                    {{ vendor.name }}
+                    <input type="hidden" name="vendor_id" value="{{ vendor.id }}">
+                </td>
+                <td><input type="number" step="0.01" name="milk_litres" class="form-control" placeholder="Leave blank if none"></td>
+                <td><input type="number" step="0.01" name="percentage" class="form-control" placeholder="Leave blank if none"></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <button type="submit" class="btn btn-success">Submit Sheet</button>
+</form>
+{% endblock %}
