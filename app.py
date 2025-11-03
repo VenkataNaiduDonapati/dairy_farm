@@ -215,4 +215,5 @@ def vendor_milk_logs():
                            selected_month=selected_month)
 
 if __name__ == '__main__':
+
     app.run(debug=True)
